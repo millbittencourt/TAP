@@ -1,0 +1,93 @@
+import java.util.Random;
+
+public class BuscaBinaria {
+	// Fazer um vetor aleatorio OK
+	// Ordenar esse vetor OK
+	// Fazer a busca binária OK
+	// x aleatorio OK
+	//counts (where?)
+	//plan 
+	
+	public static Random rd = new Random();
+	public static int count = 0;
+	public static int[] counts = new int[10];
+	
+	public static void main(String args[]) {
+    	int i = 0;
+	    while(i < 10){
+	     System.out.print(repeticao(1)+"\t");
+	     //System.out.print(repeticao(10)+"\t");
+	     //System.out.print(repeticao(100)+"\t");
+	     //System.out.print(repeticao(1000)+"\t");
+	        i++;
+    	}
+	}
+	
+	public static double repeticao(int qtd){
+    int[] counts = new int[qtd]; 
+    double soma = 0d;
+    
+    for(int i = 0; i < qtd; i++){ 
+      int x = rd.nextInt(10); 
+      int[] vetorA = vetorAleatorio(1000);
+      buscaBinaria(x, ordenarVetor(vetorA));
+   	  counts[i] = count; 
+     // System.out.println("Count: "+count +"\n");  
+      soma += counts[i];
+ 	}   
+ //	System.out.print("Counts "+qtd+": "+soma+"\n");
+ 	return (soma / counts.length); //media
+  }
+
+	public static int[] vetorAleatorio(int tamanho) {
+		int[] vetor = new int[tamanho];
+		for (int i = 0; i < tamanho; i++) {
+			vetor[i] = rd.nextInt(10);
+//			System.out.print(vetor[i] + " ");
+		}
+		return vetor;
+	}
+
+	public static int[] ordenarVetor(int[] vetor) {
+		int aux = 0;
+		for (int i = 0; i < vetor.length; i++) {
+			for (int j = 0; j < vetor.length; j++) {
+				if (vetor[i] < vetor[j]) {
+					aux = vetor[i];
+					vetor[i] = vetor[j];
+					vetor[j] = aux;
+				}
+			}
+		}
+		for (int i = 0; i < vetor.length; i++) {
+		//	System.out.print(vetor[i] + " ");
+		}
+	//	System.out.println();
+		return vetor;
+	}
+
+	public static int buscaBinaria(int x, int[] vetor) {
+		int inf = 0, sup = vetor.length - 1, pivo = 0;
+		count = 0;
+		while (inf <= sup) { // repete até achar ou até o inf chegar no sup, aí não achou x.
+			count++;
+			pivo = inf + (sup - inf) / 2;
+			if (x == vetor[pivo]) { // achooô
+				// System.out.println("Acheiii! O pivot é " + vetor[pivo]);
+				count++;
+				return pivo;
+			} else if (x > vetor[pivo]) { // x maior que o numero pivô
+				// System.out.println(x+" é maior que " + vetor[pivo]+". Vou prá lá.");
+				count++;
+				inf = pivo + 1; // vai pra direita
+			} else {// x menor que pivo
+				// System.out.println(x+" é menor que " + vetor[pivo]+". Vou prá cá.");
+				count++;
+				sup = pivo - 1; // vai pra esquerda
+			}
+		}
+		// System.out.println("Não achei, hein :/ Esse vetor n tem "+x);
+		count++;
+		return -1;
+	}
+}

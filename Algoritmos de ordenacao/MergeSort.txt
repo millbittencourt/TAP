@@ -1,0 +1,105 @@
+import java.util.Random;
+
+public class mergeSort {
+
+	public static Random rd = new Random();
+	private static int count;
+
+	public static void main(String args[]) {
+	   int teste = 0;
+       while (teste < 10){
+       System.out.print("\t" + repeticao(1));
+        //System.out.print("\t" +repeticao(10));
+        //System.out.print("\t" +repeticao(100));
+        //System.out.print("\t" +repeticao(1000));
+        teste++;
+       }
+	}
+
+	public static int[] vetorAleatorio(int tam) {
+		int[] vetor = new int[tam];
+		for (int i = 0; i < tam; i++) {
+			vetor[i] = rd.nextInt(1000);
+	//		System.out.print(vetor[i] + " ");
+		}
+		return vetor;
+	}
+
+	public static void sort(int[] vetor, int first, int last) {
+		int meio;
+	
+		if (first < last) {
+			meio = (first + last) / 2;
+			
+			sort(vetor, first, meio);
+			sort(vetor, meio + 1, last);
+			merge(vetor, first, meio, last);
+
+		}
+		//return vetor;
+
+	}
+
+	public static int[] merge(int[] vetor, int first, int meio, int last) {
+		int[] vetor2 = new int[vetor.length];
+        count = 0;
+        
+		for (int i = first; i <= last; i++) {
+		    count++;
+			vetor2[i] = vetor[i];
+		}
+		int i = first, j = meio + 1, k = first;
+
+		while (j <= last && i <= meio) {
+		    count++;
+			if (vetor2[i] < vetor[j]) {
+			    count++;
+				vetor[k] = vetor2[i];
+				i++;
+			} else {
+			    count++;
+				vetor[k] = vetor2[j];
+				j++;
+			}
+			k++;
+		}
+		while (i <= meio) {
+		    count++;
+			vetor[k] = vetor2[i];
+			i++;
+			k++;
+		}
+		while (j <= last) {
+		    count++;
+			vetor[k] = vetor2[j];
+			j++;
+			k++;
+		}
+	//	System.out.print("\nMerging: \n");
+	//	for (i = 0; i < vetor.length; i++) {
+	//		System.out.print(vetor[i] + " ");
+	//	}
+	    count++;
+		return vetor;
+	}
+
+    public static double repeticao(int qtd){
+    int[] counts = new int[qtd]; 
+    double soma = 0d;
+    
+    for(int i = 0; i < qtd; i++){ 
+         //System.out.println("Vetor Aleatorio: ");
+        int[] vet = vetorAleatorio(10);
+		sort(vet, 0, vet.length-1);
+
+        counts[i] = count; 
+     // System.out.println("Count: "+count +"\n");  
+      soma = soma + counts[i];
+ 	}   
+ //	System.out.print("Counts "+qtd+": "+soma+"\n");
+ 	return soma / counts.length;
+  }
+}
+
+
+//Language Version:  JDK 10.0.1

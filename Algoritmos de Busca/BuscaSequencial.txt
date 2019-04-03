@@ -1,0 +1,53 @@
+
+public class Busca {
+  public static int count = 0;
+
+  public static void main(String[] args) {
+    System.out.println(" Media 1: " +repeticao(1));
+    System.out.println(" Media 10: " +repeticao(10));
+    System.out.println(" Media 100: " +repeticao(100));
+    System.out.println(" Media 1000: " +repeticao(1000));
+    System.out.println(" Media 1000: " +repeticao(10000));
+  }
+  
+  public static double repeticao(int qtd){
+    int[] counts = new int[qtd]; 
+    double soma = 0d;
+    
+    for(int i = 0; i < qtd; i++){ 
+      int x = (int) (Math.random() * 1000) + 1; 
+      buscaSequencial(x, vetorAleatorio(1000)); 
+   	  counts[i] = count; 
+     // System.out.println("Count: "+count +"\n");  
+      soma = soma + counts[i];
+ 	}   
+ //	System.out.print("Counts "+qtd+": "+soma);
+ 	return soma / counts.length;
+  }
+  
+  public static int[] vetorAleatorio(int tamanho){
+    int [] vetor = new int[tamanho];
+
+    for(int i = 0; i < tamanho; i++){
+	    vetor[i] = (int) (Math.random() * 1000) + 1;
+    //  System.out.print(vetor[i] + " ");
+    }
+    return vetor;
+  }
+  
+   public static int buscaSequencial(int x, int[] v){
+     count = 0;
+     for(int i = 0; i < v.length; i++){
+      count++;
+       if(v[i] == x){
+         count++;
+    //     System.out.println("\n" + x + " na posição " + i);
+         return i;
+       }
+       count++;
+     }
+   //   System.out.println("\n" + x + " não está no vetor.");
+      return 0; 
+   }
+}
+

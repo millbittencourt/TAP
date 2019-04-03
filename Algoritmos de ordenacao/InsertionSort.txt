@@ -1,0 +1,67 @@
+public class InsertionSort {
+    //mudar o aleayotio
+    //fazer o merge e o quick sort
+    
+    private static int tamanhoV = 1000;
+    private static int count;
+    
+    public static void main(String args[]) {
+       int teste = 0;
+       while (teste < 10){
+        System.out.print("\t" + repeticao(1));
+        //System.out.print("\t" +repeticao(10));
+       // System.out.print("\t" +repeticao(100));
+       //System.out.print("\t" +repeticao(1000));
+        teste++;
+       }
+    }
+    
+    public static int[] vetorAleatorio(int tamanho){
+    int [] vetor = new int[tamanho];
+    //System.out.println("Random: ");
+
+    for(int i = 0; i < tamanho; i++){
+	    vetor[i] = (int) (Math.random() * 1000) + 1;
+     // System.out.print(vetor[i] + " ");
+    }
+    return vetor;
+  }
+   
+   public static int[] InsertionSort(int[] vetor){
+       int atual = 0, j;
+       count = 0;
+        // System.out.println("\nSorted: ");
+       for(int i = 0; i < vetor.length; i++){
+           count++;
+           atual = vetor[i];
+           for (j = i-1; (j>=0) && (atual<vetor[j]); j--){
+               count++;
+               vetor[j+1] = vetor[j];
+           }
+           vetor[j+1] = atual;
+	   }
+	/* for(int i = 0; i < vetor.length; i++){
+	      System.out.print(vetor[i] + " ");
+	  }*/
+	  count++;
+	  return vetor;
+   }
+   
+   public static double repeticao(int qtd){
+    int[] counts = new int[qtd]; 
+    double soma = 0d;
+    
+    for(int i = 0; i < qtd; i++){ 
+        InsertionSort(vetorAleatorio(tamanhoV));
+        counts[i] = count; 
+     // System.out.println("Count: "+count +"\n");  
+      soma = soma + counts[i];
+ 	}   
+ //	System.out.print("Counts "+qtd+": "+soma+"\n");
+ 	return soma / counts.length;
+  }
+}//
+
+
+
+Language Version:  JDK 10.0.1
