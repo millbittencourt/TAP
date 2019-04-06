@@ -1,82 +1,75 @@
 public class QuickSort {
-    
-    public static int count = 0;
-    private static int tamanhoV = 10;
-    
-    public static void main(String args[]) {
-      int plan = 0;
-       while (plan < 10){
-        System.out.print("\t" + repeticao(1));
-        //System.out.print("\t" +repeticao(10));
-       // System.out.print("\t" +repeticao(100));
-       //System.out.print("\t" +repeticao(1000));
-        plan++;
-    }
-    }
-    
-    public static int[] vetorAleatorio(int tamanho){
-        int [] vetor = new int[tamanho];
-        System.out.println("Random: ");
-        
-        for(int i = 0; i < tamanho; i++){
-            vetor[i] = (int) (Math.random() * 1000) + 1;
-            System.out.print(vetor[i] + " ");
-        }
-    return vetor;
-  }
-  
-  public static int[] quickSort(int [] vetor, int ini, int fim){
-      int i = ini, j = fim, pivo = vetor[(ini+fim)/2], aux;
-      
-      while(i <= j){
-          count++;
-        while(vetor[i] < pivo){
-            count++;
-            i++;
-        }
-        while(vetor[j] > pivo){
-            count++;
-            j--;
-        }
-        if(i<=j){
-            count++;
-            aux = vetor[i];
-            vetor[i] = vetor[j];
-            vetor[j] = aux;
-            i++;
-            j--;
-        }
-      }
-      if(ini < j) 
-          quickSort(vetor, ini, j);
-      if(i < fim)
-          quickSort(vetor, i, fim);
-          
-      System.out.print("\nQuick: ");
-      for (int k = 0; k<vetor.length; k++) {
-          count++;
-         System.out.print(vetor[k] + " ");
-      }
-      count++;
-      return vetor;
-  }
-  
- public static double repeticao(int qtd){
-    int[] counts = new int[qtd]; 
-    double soma = 0d;
-    
-    for(int i = 0; i < qtd; i++){ 
-        int[]vet = vetorAleatorio(tamanhoV);
-        quickSort(vet, 0, vet.length);
-        counts[i] = count; 
-     // System.out.println("Count: "+count +"\n");  
-      soma = soma + counts[i];
- 	}   
- //	System.out.print("Counts "+qtd+": "+soma+"\n");
- 	return soma / counts.length;
-  }
+
+	public static int count = 0;
+	private static int tamanhoV = 10;
+
+	public static void main(String args[]) {
+
+		int plani = 0;
+		while (plani < 10) {
+			System.out.print("\t" + repeticao(1));
+			// System.out.print("\t" +repeticao(10));
+			// System.out.print("\t" +repeticao(100));
+			// System.out.print("\t"+repeticao(1000));
+			plani++;
+		}
+	}
+
+	public static int[] vetorAleatorio(int tamanho) {
+		int[] vetor = new int[tamanho];
+		//System.out.println("Random: ");
+
+		for (int i = 0; i < tamanho; i++) {
+			vetor[i] = (int) (Math.random() * 1000) + 1;
+		//	System.out.print(vetor[i] + " ");
+		}
+		return vetor;
+	}
+
+	public static void quickSort(int[] vetor, int first, int last) {
+		if (first < last) {
+			count++;
+			int pivo = partition(vetor, first, last);
+			quickSort(vetor, first, pivo - 1);
+			quickSort(vetor, pivo + 1, last);
+		}
+	}
+
+	public static int partition(int[] vetor, int first, int last) {
+		int pivo = vetor[last];
+		int i = first - 1;
+
+		for (int j = first; j <= last - 1; j++) {
+			count++;
+			if (vetor[j] <= pivo) {
+				count++;
+				i++;
+				int aux = vetor[j];
+				vetor[j] = vetor[i];
+				vetor[i] = aux;
+			}
+		}
+		int aux = vetor[i + 1];
+		vetor[i + 1] = vetor[last];
+		vetor[last] = aux;
+		
+		count++;
+		return i + 1;
+	}
+
+	public static double repeticao(int qtd) {
+		int[] counts = new int[qtd];
+		double soma = 0d;
+
+		for (int i = 0; i < qtd; i++) {
+			int[] vet = vetorAleatorio(tamanhoV);
+			quickSort(vet, 0, (vet.length - 1));
+			counts[i] = count;
+			// System.out.println("Count: "+count +"\n");
+			soma = soma + counts[i];
+			count = 0;
+		}
+		// System.out.print("Counts "+qtd+": "+soma+"\n");
+		return soma / counts.length;
+	}
 }
-
-
-
-//Language Version:  JDK 10.0.1
